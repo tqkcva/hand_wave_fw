@@ -108,17 +108,26 @@ void process_cmd(char *cmd, int len)
     {
         _hand_wave.num_of_wave = val;
         Serial.print("\r\nOK\r\n");
+        EEPROM.put(0, _hand_wave);
     }
     else if (memcmp(tmp_cmd, "delay_time:", strlen("delay_time:")) == 0)
     {
         _hand_wave.delay_time = val;
+        Serial.print("\r\nOK\r\n");
+        EEPROM.put(0, _hand_wave);
+    }
+    else if (memcmp(tmp_cmd, "get:", strlen("get:")) == 0)
+    {
+        Serial.print("num_of_wave: ");
+        Serial.println(_hand_wave.num_of_wave);
+        Serial.print("delay_time: ");
+        Serial.println(_hand_wave.delay_time);
         Serial.print("\r\nOK\r\n");
     }
     else
     {
         Serial.print("\r\nUnknownCMD\r\n");
     }
-    EEPROM.put(0, _hand_wave);
 }
 
 void setup()
